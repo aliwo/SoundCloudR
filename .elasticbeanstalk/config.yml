@@ -1,12 +1,12 @@
 branch-defaults:
   master:
-    environment: null
+    environment: sound
     group_suffix: null
 global:
-  application_name: SoundCloud
+  application_name: sound
   branch: null
   default_ec2_keyname: null
-  default_platform: Python 3.4
+  default_platform: python3.4
   default_region: ap-northeast-2
   include_git_submodules: true
   instance_profile: null
