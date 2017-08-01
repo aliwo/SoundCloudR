@@ -1,5 +1,7 @@
+from flask import jsonify
+import json
 
-class Track(dict): # 곡 하나를 Track 객체로 표현.
+class Track(): # 곡 하나를 Track 객체로 표현.
     kind =  None
     id = None
     created_at = None
@@ -34,3 +36,10 @@ class Track(dict): # 곡 하나를 Track 객체로 표현.
         stream_url = client.get(track.stream_url, allow_redirects=False)
         return stream_url.location
         # stream_url.location은 playlist로 얻어온 json 파일에는 들어있지 않다. 어디서 가져오는진 모르곘지만 바로 재생 가능.
+
+    def get_response_dict(self, client):
+        return {'title': self.title
+                  ,'artwork_url': self.artwork_url
+                  ,'genre': self.genre
+                  ,'stream_url': self.get_stream_url(client)
+                  }

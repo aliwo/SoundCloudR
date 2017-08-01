@@ -20,7 +20,7 @@ playlist = \
                     'title':'Alan Walker - Tired',
                     'user': {'저작자의 user 정보인듯'}
              }],
-
+        'title' : '이 플레이리스트의 타이틀',
         'user_id' : '322169510', #플레이 리스트를 만든이의 user_id
         'user': { # 플레이리스트를 만든이의 정보가 들어 있음.
                     'username': 'Fred',
