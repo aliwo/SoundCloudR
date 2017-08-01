@@ -1,4 +1,4 @@
-from SoundCloudR import db
+from app import db
 
 # class TrackResponse(dict):
 #     artwork_url =None

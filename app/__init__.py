@@ -11,7 +11,7 @@ thread = None
 
 db=SQLAlchemy(application)
 
-from SoundCloudR import views, models
+from app import views, models
 # import 자체가 아무 일도 하지 않는 것이 아님. views에 작성된 코드를 실행 하는 것 같다.
 
 '''순환 참조(circular reference)를 막기 위해서 import views를 마지막에 한다.
