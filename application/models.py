@@ -1,16 +1,4 @@
-from app import db
-
-# class TrackResponse(dict):
-#     artwork_url =None
-#     title =None
-#     artist =None
-#     genre =None
-#     stream_url = None
-#
-#     def __init__(self, data):
-#         super().__init__()
-
-
+from application import db
 
 class Song(db.Model):
     id = db.Column(db.Integer, primary_key=True)

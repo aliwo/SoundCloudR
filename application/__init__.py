@@ -1,8 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-import os
-
 application = Flask(__name__)
 application.config['SECRET_KEY'] = 'secreet!'
 application.config.from_object('config') # config 파일을 불러와서 app객체를 설정합니다.
@@ -11,7 +9,8 @@ thread = None
 
 db=SQLAlchemy(application)
 
-from app import views, models
+from application import views
+
 # import 자체가 아무 일도 하지 않는 것이 아님. views에 작성된 코드를 실행 하는 것 같다.
 
 '''순환 참조(circular reference)를 막기 위해서 import views를 마지막에 한다.
