@@ -3,10 +3,10 @@
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+application_dir = os.path.join(basedir, 'application')
 
-UPLOAD_FOLDER = './application/tracks'
+UPLOAD_FOLDER = os.path.join(application_dir, 'tracks')
 SHIPMENT_FOLDER = './tracks'
-#UPLOAD_FOLDER = './OriginalUnit/racks'
 
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'application.db')
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository') #자동 생성된 db_repository의 위치를 구합니다.

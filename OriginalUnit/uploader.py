@@ -32,7 +32,7 @@ def upload_file(upload_location):
 
 
 
-def upload_UI(upload_location):
+def upload_UI(upload_location, shipment_location):
     return '''
             <!doctype html>
             <title>Upload new File</title>
@@ -41,4 +41,6 @@ def upload_UI(upload_location):
               <p><input type=file name=file>
                  <input type=submit value=Upload>
             </form>
-            ''' + str(os.path.join(upload_location))
+            ''' + str(os.path.join(upload_location))\
+            +str('<br>')\
+           + str(os.path.join(shipment_location))

@@ -31,7 +31,7 @@ def get_stream_url():
 @application.route('/original/track', methods=['GET', 'POST'])
 def upload_file():
     if request.method== 'GET':
-        return uploader.upload_UI(application.config['UPLOAD_FOLDER'])
+        return uploader.upload_UI(application.config['UPLOAD_FOLDER'], application.config['SHIPMENT_FOLDER'])
     if request.method== 'POST':
         filename = uploader.upload_file(application.config['UPLOAD_FOLDER'])
         return redirect(url_for('uploaded_file', filename=filename))
