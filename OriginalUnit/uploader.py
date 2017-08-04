@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, redirect, url_for, flash, send_from_directory
+from flask import request, redirect, flash, send_from_directory
 from werkzeug.utils import secure_filename
 
 
@@ -12,16 +12,15 @@ def allowed_file(filename):
 def uploaded_file(filename, upload_location):
     return send_from_directory(upload_location, filename)
 
-def upload_file(upload_location):
+def upload_file(upload_location, file_key):
     if request.method == 'POST':
     # check if the post request has the file part
-        if 'file' not in request.files:
+        if file_key not in request.files:
             flash('No file part')
             return redirect(request.url)
-        file = request.files['file']
+        file = request.files[file_key]
         # if user does not select file, browser also
-        # submit a empty part without filename
-        if file.filename == '':
+        if file.filename == '':         # 파일 이름체크
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
@@ -29,7 +28,22 @@ def upload_file(upload_location):
             file.save(os.path.join(upload_location, filename))
             return filename
 
+def upload_file_arrays(upload_location, array_name):
+    # check if the post request has the file part
+        if array_name not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        files = request.files.getlist(array_name)
+        # if user does not select file, browser also
+        for file in files:
+            if file.filename == '':         # 파일 이름체크
+                flash('No selected file')
+                return redirect(request.url)
+            if file and allowed_file(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(upload_location, filename))
 
+        return files
 
 
 def upload_UI(upload_location, shipment_location):

@@ -1,3 +1,3 @@
-from application import application, db
+from application import db
 
 db.create_all()
