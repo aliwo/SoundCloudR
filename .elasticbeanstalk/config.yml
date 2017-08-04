@@ -1,9 +1,9 @@
 branch-defaults:
   default:
-    environment: caught
+    environment: test
     group_suffix: null
 global:
-  application_name: caught
+  application_name: test
   branch: null
   default_ec2_keyname: null
   default_platform: python3.4

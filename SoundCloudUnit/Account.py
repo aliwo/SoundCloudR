@@ -11,8 +11,8 @@ class SoundCloudAPIAccount:
         self.client = soundcloud.Client(
             client_id='jDtJOucgyacN8CELJ8vR3vJ4KuDwcTGQ',
             client_secret='PTlD6rjotNUi3En6Eo4Ctrxyho4PqSWk',
-            username='aliwo@naver.com',
-            password='jsw0711')
+            username='reborn@inu.ac.kr',
+            password='young4ever')
 
         self.client_id = str(self.client.get('/me').id)
         self.client_name = self.client.get('/me').username

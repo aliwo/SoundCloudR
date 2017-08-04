@@ -9,7 +9,7 @@ import config
 
 @application.route('/')
 def hello_world():
-    return 'Hello World!'
+    return 'Hello! <br> if you have any question, please send email to <br> aliwo@naver.com'
 
 @application.route('/playlist', methods=['POST', 'GET'])
 def get_playlist():
@@ -22,7 +22,8 @@ def get_playlist():
             tracks = soundcloud.get_tracks(playlist, account)
             return jsonify(tracks)
         else:
-            return 'invalid command' #TODO: 에러 코드를 담아서 response를 보내야함... 혹은 다른 방식으로 처리할지 손코딩 해보기
+            return 'invalid command'
+            #TODO: invalid 관련 에러 페이지 만들기
 
 @application.route('/stream', methods=['GET'])
 def get_stream_url():
@@ -33,7 +34,10 @@ def get_stream_url():
 @application.route('/original/playlist', methods=['GET', 'POST', 'DELETE'])
 def original_playlist():
     if request.method== 'POST':
-        return OriginalUnit.playlist.make_playlist()
+        if request.form.get('secret') == config.ADMIN_SECRET:
+            return OriginalUnit.playlist.make_playlist()
+        else:
+            return 'you shall not pass'
 
     if request.method == 'GET':
         playlist = OriginalUnit.playlist.get_playlist(request.args.get('playlist_title'))
@@ -67,19 +71,18 @@ def upload_file():
                             track_title)
         #return uploader.upload_UI(application.config['UPLOAD_FOLDER'], application.config['SHIPMENT_FOLDER'])
     if request.method== 'POST':
-        filename = uploader.upload_file(application.config['UPLOAD_FOLDER'])
-        return redirect(url_for('uploaded_file', filename=filename))
+        return OriginalUnit.playlist.add_tracks()
 
-# @application.route('/original/uploads/<filename>', methods=['GET'])
-# def uploaded_track(filename):
-#     return send_from_directory(config.TRACKS_SHIPMENT_FOLDER,
-#                                filename)
-
-@application.route('/original/image', methods=['GET'])
+@application.route('/original/image', methods=['GET', 'POST'])
 def uploaded_image():
-    image_name = str(request.args.get('image_title'))
-    return send_from_directory(config.IMAGES_SHIPMENT_FOLDER,
-                               image_name)
+    if request.method == 'GET':
+        image_name = str(request.args.get('image_title'))
+        return send_from_directory(config.IMAGES_SHIPMENT_FOLDER,
+                                   image_name)
+    if request.method == 'POST':
+        return  OriginalUnit.playlist.add_image()
+        #TODO: 이미 있는 플레이리스트에 이미지 추가하기 기능.
+
 '''send_from)directory는 자신이 호출된 views.py를 무조건 기본 디렉터리로 사용하는
  지랄 맞은 알고리즘을 가지고 있기 때문에, config[] 에서 send_from_directory 전용의 SHIPMENT 경로를
  만들었습니다. 실제적으로 UPLOAD_FOLDER와 SHIPMENT_FOLDER는 같은 디렉터리를 가리킵니다.

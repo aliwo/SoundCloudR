@@ -3,7 +3,7 @@ from flask import request, redirect, flash, send_from_directory
 from werkzeug.utils import secure_filename
 
 
-ALLOWED_EXTENSIONS = set(['txt', 'png', 'jpg', 'jpeg', 'mp3'])
+ALLOWED_EXTENSIONS = set(['txt', 'png', 'jpg', 'jpeg', 'mp3', 'wav'])
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -17,12 +17,12 @@ def upload_file(upload_location, file_key):
     # check if the post request has the file part
         if file_key not in request.files:
             flash('No file part')
-            return redirect(request.url)
+            return None
         file = request.files[file_key]
         # if user does not select file, browser also
         if file.filename == '':         # 파일 이름체크
             flash('No selected file')
-            return redirect(request.url)
+            return None
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(upload_location, filename))
